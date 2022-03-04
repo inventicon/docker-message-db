@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  message-db:
+    container_name: message-db
+    image: message-db:10-bullseye
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example

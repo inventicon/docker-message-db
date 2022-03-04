@@ -1,0 +1,17 @@
+{
+  "10-alpine": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:10-alpine",
+      "message_db_tag": "v1.2.6"
+    },
+    "template": "alpine"
+  },
+  "10-bullseye": {
+    "tags": ["10"],
+    "vars": {
+      "base_image": "postgres:10-bullseye"
+    },
+    "template": "debian"
+  }
+}
