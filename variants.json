@@ -1,6 +1,6 @@
 {
   "10-alpine": {
-    "tags": [],
+    "aliases": [],
     "vars": {
       "base_image": "postgres:10-alpine",
       "message_db_tag": "v1.2.6"
@@ -8,14 +8,15 @@
     "template": "alpine"
   },
   "10-bullseye": {
-    "tags": [],
+    "aliases": ["10"],
     "vars": {
-      "base_image": "postgres:10-bullseye"
+      "base_image": "postgres:10-bullseye",
+      "message_db_tag": "v1.2.6"
     },
     "template": "debian"
   },
   "11-alpine": {
-    "tags": [],
+    "aliases": [],
     "vars": {
       "base_image": "postgres:11-alpine",
       "message_db_tag": "v1.2.6"
@@ -23,14 +24,15 @@
     "template": "alpine"
   },
   "11-bullseye": {
-    "tags": [],
+    "aliases": ["11"],
     "vars": {
-      "base_image": "postgres:11-bullseye"
+      "base_image": "postgres:11-bullseye",
+      "message_db_tag": "v1.2.6"
     },
     "template": "debian"
   },
   "12-alpine": {
-    "tags": [],
+    "aliases": [],
     "vars": {
       "base_image": "postgres:12-alpine",
       "message_db_tag": "v1.2.6"
@@ -38,14 +40,15 @@
     "template": "alpine"
   },
   "12-bullseye": {
-    "tags": [],
+    "aliases": ["12"],
     "vars": {
-      "base_image": "postgres:12-bullseye"
+      "base_image": "postgres:12-bullseye",
+      "message_db_tag": "v1.2.6"
     },
     "template": "debian"
   },
   "13-alpine": {
-    "tags": [],
+    "aliases": [],
     "vars": {
       "base_image": "postgres:13-alpine",
       "message_db_tag": "v1.2.6"
@@ -53,14 +56,15 @@
     "template": "alpine"
   },
   "13-bullseye": {
-    "tags": [],
+    "aliases": ["13"],
     "vars": {
-      "base_image": "postgres:13-bullseye"
+      "base_image": "postgres:13-bullseye",
+      "message_db_tag": "v1.2.6"
     },
     "template": "debian"
   },
   "14-alpine": {
-    "tags": [],
+    "aliases": [],
     "vars": {
       "base_image": "postgres:14-alpine",
       "message_db_tag": "v1.2.6"
@@ -68,9 +72,10 @@
     "template": "alpine"
   },
   "14-bullseye": {
-    "tags": [],
+    "aliases": ["14"],
     "vars": {
-      "base_image": "postgres:14-bullseye"
+      "base_image": "postgres:14-bullseye",
+      "message_db_tag": "v1.2.6"
     },
     "template": "debian"
   }

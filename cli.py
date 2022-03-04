@@ -1,9 +1,10 @@
-#!/bin/sh
-''''exec python3 -u -- "$0" ${1+"$@"} # '''
+#!/usr/bin/env python3
 # vi: syntax=python
 import os
 import json
 import shutil
+import sys
+import subprocess
 from typing import List, Dict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from dataclasses import dataclass
@@ -14,6 +15,8 @@ IMAGES_DIR = os.path.join(DIRNAME, 'images')
 TEMPLATES_DIR = os.path.join(DIRNAME, 'templates')
 VARIANTS_FILE = os.path.join(DIRNAME, 'variants.json')
 
+IMAGE_NAME = 'inventicon/message-db'
+
 env = Environment(
   loader=FileSystemLoader(TEMPLATES_DIR),
   autoescape=select_autoescape(),
@@ -23,7 +26,7 @@ env = Environment(
 @dataclass
 class Variant:
   tag: str
-  tags: List[str]
+  aliases: List[str]
   vars: Dict
   template: str
 
@@ -52,10 +55,40 @@ def make_variant(variant: Variant):
     with open(dest, 'w') as fh:
       fh.write(template.render(variant.vars))
 
-def main():
+def build_variant(variant: Variant):
+  main_tag = IMAGE_NAME + ':' + variant.tag
+  print(f'[{main_tag}]')
+  proc = subprocess.Popen(
+    ['docker', 'build', '--tag', main_tag, '.'],
+    cwd=os.path.join(IMAGES_DIR, variant.tag)
+  )
+  proc.wait()
+  for alias in variant.aliases:
+    alias_tag = IMAGE_NAME + ':' + alias
+    print(f'[{main_tag}] => [{alias_tag}]')
+    subprocess.Popen(['docker', 'tag', main_tag, alias_tag]).wait()
+  pass
+
+def build():
+  print('Building...')
+  for variant in get_variants():
+    build_variant(variant)
+
+def generate():
+  print('Generating...')
   reset()
   for variant in get_variants():
     make_variant(variant)
+
+def main():
+  command = sys.argv[1].lower() if len(sys.argv) > 1 else None
+  if command == 'build':
+    build()
+  elif command == 'generate':
+    generate()
+  else:
+    generate()
+    build()
 
 if __name__ == '__main__':
   main()

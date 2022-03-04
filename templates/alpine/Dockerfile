@@ -6,7 +6,7 @@ WORKDIR /
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y curl
-RUN curl -L https://github.com/message-db/message-db/archive/refs/tags/v1.2.6.tar.gz --output message-db.tar.gz \
+RUN curl -L https://github.com/message-db/message-db/archive/refs/tags/{{ message_db_tag }}.tar.gz --output message-db.tar.gz \
     && mkdir message-db \
     && tar -xvf message-db.tar.gz -C message-db --strip-components=1
 

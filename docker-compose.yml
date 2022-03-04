@@ -3,7 +3,11 @@ version: '3'
 services:
   message-db:
     container_name: message-db
-    image: message-db:10-bullseye
+    image: inventicon/message-db:14-bullseye
     restart: always
+    ports:
+    - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+    - ./data:/var/lib/postgresql/data
