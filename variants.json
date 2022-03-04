@@ -8,9 +8,69 @@
     "template": "alpine"
   },
   "10-bullseye": {
-    "tags": ["10"],
+    "tags": [],
     "vars": {
       "base_image": "postgres:10-bullseye"
+    },
+    "template": "debian"
+  },
+  "11-alpine": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:11-alpine",
+      "message_db_tag": "v1.2.6"
+    },
+    "template": "alpine"
+  },
+  "11-bullseye": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:11-bullseye"
+    },
+    "template": "debian"
+  },
+  "12-alpine": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:12-alpine",
+      "message_db_tag": "v1.2.6"
+    },
+    "template": "alpine"
+  },
+  "12-bullseye": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:12-bullseye"
+    },
+    "template": "debian"
+  },
+  "13-alpine": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:13-alpine",
+      "message_db_tag": "v1.2.6"
+    },
+    "template": "alpine"
+  },
+  "13-bullseye": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:13-bullseye"
+    },
+    "template": "debian"
+  },
+  "14-alpine": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:14-alpine",
+      "message_db_tag": "v1.2.6"
+    },
+    "template": "alpine"
+  },
+  "14-bullseye": {
+    "tags": [],
+    "vars": {
+      "base_image": "postgres:14-bullseye"
     },
     "template": "debian"
   }
