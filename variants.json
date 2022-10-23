@@ -3,15 +3,17 @@
     "aliases": [],
     "vars": {
       "base_image": "postgres:10-alpine",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "alpine"
   },
   "10-bullseye": {
-    "aliases": ["10"],
+    "aliases": [
+      "10"
+    ],
     "vars": {
       "base_image": "postgres:10-bullseye",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "debian"
   },
@@ -19,15 +21,17 @@
     "aliases": [],
     "vars": {
       "base_image": "postgres:11-alpine",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "alpine"
   },
   "11-bullseye": {
-    "aliases": ["11"],
+    "aliases": [
+      "11"
+    ],
     "vars": {
       "base_image": "postgres:11-bullseye",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "debian"
   },
@@ -35,15 +39,17 @@
     "aliases": [],
     "vars": {
       "base_image": "postgres:12-alpine",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "alpine"
   },
   "12-bullseye": {
-    "aliases": ["12"],
+    "aliases": [
+      "12"
+    ],
     "vars": {
       "base_image": "postgres:12-bullseye",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "debian"
   },
@@ -51,15 +57,17 @@
     "aliases": [],
     "vars": {
       "base_image": "postgres:13-alpine",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "alpine"
   },
   "13-bullseye": {
-    "aliases": ["13"],
+    "aliases": [
+      "13"
+    ],
     "vars": {
       "base_image": "postgres:13-bullseye",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "debian"
   },
@@ -67,15 +75,35 @@
     "aliases": [],
     "vars": {
       "base_image": "postgres:14-alpine",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
     },
     "template": "alpine"
   },
   "14-bullseye": {
-    "aliases": ["14"],
+    "aliases": [
+      "14"
+    ],
     "vars": {
       "base_image": "postgres:14-bullseye",
-      "message_db_tag": "v1.2.6"
+      "message_db_tag": "v1.3.0"
+    },
+    "template": "debian"
+  },
+  "15-alpine": {
+    "aliases": [],
+    "vars": {
+      "base_image": "postgres:15-alpine",
+      "message_db_tag": "v1.3.0"
+    },
+    "template": "alpine"
+  },
+  "15-bullseye": {
+    "aliases": [
+      "15"
+    ],
+    "vars": {
+      "base_image": "postgres:15-bullseye",
+      "message_db_tag": "v1.3.0"
     },
     "template": "debian"
   }

@@ -11,7 +11,7 @@ RUN curl -L https://github.com/message-db/message-db/archive/refs/tags/v1.3.0.ta
     && tar -xvf message-db.tar.gz -C message-db --strip-components=1
 
 # == FINAL == #
-FROM postgres:12-bullseye
+FROM postgres:15-alpine
 
 COPY --from=setup /message-db /opt/message-db
 COPY ./install-message-db.sh /docker-entrypoint-initdb.d/
