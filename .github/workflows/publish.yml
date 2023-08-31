@@ -5,13 +5,13 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [11, 12, 13, 14, 15]
+        version: [11, 12, 13, 14, 15, 16beta3]
         variant: [alpine, bookworm]
-    name: Build ${{ matrix.version }}-${{ matrix.variant }}
+    name: ${{ matrix.version }}-${{ matrix.variant }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
