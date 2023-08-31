@@ -116,45 +116,44 @@ docker_verify_minimum_env() {
 	# messes it up
 	if [ "${#POSTGRES_PASSWORD}" -ge 100 ]; then
 		cat >&2 <<-'EOWARN'
+			WARNING: The supplied password is 100+ characters.
 
-			WARNING: The supplied POSTGRES_PASSWORD is 100+ characters.
+				This will not work if used via PGPASSWORD with "psql".
 
-			  This will not work if used via PGPASSWORD with "psql".
-
-			  https://www.postgresql.org/message-id/flat/E1Rqxp2-0004Qt-PL%40wrigleys.postgresql.org (BUG #6412)
-			  https://github.com/docker-library/postgres/issues/507
-
+			  	https://www.postgresql.org/message-id/flat/E1Rqxp2-0004Qt-PL%40wrigleys.postgresql.org (BUG #6412)
+			  	https://github.com/docker-library/postgres/issues/507
 		EOWARN
 	fi
 	if [ -z "$POSTGRES_PASSWORD" ] && [ 'trust' != "$POSTGRES_HOST_AUTH_METHOD" ]; then
 		# The - option suppresses leading tabs but *not* spaces. :)
 		cat >&2 <<-'EOE'
 			Error: Database is uninitialized and superuser password is not specified.
-			       You must specify POSTGRES_PASSWORD to a non-empty value for the
-			       superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
+				You must specify MESSAGE_DB_PASSWORD to a non-empty value for the
+				superuser. For example, "-e MESSAGE_DB_PASSWORD=password" on "docker run".
 
-			       You may also use "POSTGRES_HOST_AUTH_METHOD=trust" to allow all
-			       connections without a password. This is *not* recommended.
+				You may also use "POSTGRES_HOST_AUTH_METHOD=trust" to allow all
+				connections without a password. This is *not* recommended.
 
-			       See PostgreSQL documentation about "trust":
-			       https://www.postgresql.org/docs/current/auth-trust.html
+				See PostgreSQL documentation about "trust":
+				https://www.postgresql.org/docs/current/auth-trust.html
 		EOE
 		exit 1
 	fi
 	if [ 'trust' = "$POSTGRES_HOST_AUTH_METHOD" ]; then
 		cat >&2 <<-'EOWARN'
 			********************************************************************************
-			WARNING: POSTGRES_HOST_AUTH_METHOD has been set to "trust". This will allow
-			         anyone with access to the Postgres port to access your database without
-			         a password, even if POSTGRES_PASSWORD is set. See PostgreSQL
-			         documentation about "trust":
-			         https://www.postgresql.org/docs/current/auth-trust.html
-			         In Docker's default configuration, this is effectively any other
-			         container on the same system.
+			WARNING: POSTGRES_HOST_AUTH_METHOD has been set to "trust".
+				This will allow
+				anyone with access to the Postgres port to access your database without
+				a password, even if MESSAGE_DB_PASSWORD is set. See PostgreSQL
+				documentation about "trust":
+				https://www.postgresql.org/docs/current/auth-trust.html
+				In Docker's default configuration, this is effectively any other
+				container on the same system.
 
-			         It is not recommended to use POSTGRES_HOST_AUTH_METHOD=trust. Replace
-			         it with "-e POSTGRES_PASSWORD=password" instead to set a password in
-			         "docker run".
+				It is not recommended to use POSTGRES_HOST_AUTH_METHOD=trust. Replace
+				it with "-e MESSAGE_DB_PASSWORD=password" instead to set a password in
+				"docker run".
 			********************************************************************************
 		EOWARN
 	fi
@@ -164,7 +163,6 @@ docker_verify_minimum_env() {
 # This should be called before any other functions
 docker_setup_env() {
 	file_env 'POSTGRES_PASSWORD'
-
 	file_env 'POSTGRES_USER' 'message_store'
 	file_env 'POSTGRES_DB' 'message_store'
 	file_env 'POSTGRES_INITDB_ARGS'
@@ -240,10 +238,12 @@ _pg_want_help() {
 }
 
 _main() {
-	alias_env MESSAGE_DB_PORT POSTGRES_PORT
-	alias_env MESSAGE_DB_NAME POSTGRES_DB
 	alias_env MESSAGE_DB_USER POSTGRES_USER
+	alias_env MESSAGE_DB_USER_FILE POSTGRES_USER_FILE
 	alias_env MESSAGE_DB_PASSWORD POSTGRES_PASSWORD
+	alias_env MESSAGE_DB_PASSWORD_FILE POSTGRES_PASSWORD_FILE
+	alias_env MESSAGE_DB_NAME POSTGRES_DB
+	alias_env MESSAGE_DB_NAME_FILE POSTGRES_DB_FILE
 
 	# if first arg looks like a flag, assume we want to run postgres server
 	if [ "${1:0:1}" = '-' ]; then
@@ -282,17 +282,9 @@ _main() {
 			docker_temp_server_stop
 			unset PGPASSWORD
 			unset PGUSER
-
-			cat <<-'EOM'
-
-				PostgreSQL init process complete; ready for start up.
-
-			EOM
 		else
 			cat <<-'EOM'
-
 				PostgreSQL Database directory appears to contain a database; Skipping initialization
-
 			EOM
 		fi
 	fi
