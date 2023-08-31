@@ -30,4 +30,3 @@ jobs:
         tags: inventicon/message-db:${{ matrix.version }}-${{ matrix.variant }}
         build-args:
           BASE_IMAGE=postgres:${{ matrix.version }}-${{ matrix.variant }}
-

@@ -1,23 +1,14 @@
-alpine:
-	@docker build -t inventicon/message-db:alpine \
-	--build-arg BASE_IMAGE=postgres:15-alpine .
+IMAGE = inventicon/message-db
+VERSIONS := 11 12 13 14 15
+VARIANTS := alpine bullseye bookworm
 
-alpine/run:
-	@docker run --rm -it -p 5432:5432 \
-	--env POSTGRES_PASSWORD=message_store \
-	inventicon/message-db:alpine
+TARGETS = $(foreach variant,$(VARIANTS),$(foreach version,$(VERSIONS),$(version)-$(variant)))
 
-alpine/shell:
-	@docker run --rm -it --entrypoint sh inventicon/message-db:alpine
+$(TARGETS): %:
+	@docker build --tag $(IMAGE):$* --build-arg BASE_IMAGE=postgres:$* .
 
-debian:
-	@docker build -t inventicon/message-db:debian \
-	--build-arg BASE_IMAGE=postgres:15-bookworm .
+$(addsuffix /run, $(TARGETS)): %/run:
+	@docker run --rm --interactive --tty --publish 5432:5432 --env POSTGRES_PASSWORD=message_store $(IMAGE):$*
 
-debian/run:
-	@docker run --rm -it -p 5432:5432 \
-	--env POSTGRES_PASSWORD=message_store \
-	inventicon/message-db:debian
-
-debian/shell:
-	@docker run --rm -it --entrypoint bash inventicon/message-db:debian
+$(addsuffix /shell, $(TARGETS)): %/shell:
+	@docker run --rm --interactive --tty --entrypoint sh $(IMAGE):$*
