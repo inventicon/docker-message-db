@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         version: [11, 12, 13, 14, 15, 16beta3]
-        variant: [alpine, bookworm]
+        variant: [alpine, bullseye, bookworm]
     name: ${{ matrix.version }}-${{ matrix.variant }}
     steps:
     - name: Checkout
