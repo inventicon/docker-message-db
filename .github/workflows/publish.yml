@@ -14,8 +14,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    # - name: Setup QEMU
-    #   uses: docker/setup-qemu-action@v2
     - name: Setup Buildx
       uses: docker/setup-buildx-action@v2
     - name: Docker Login
@@ -26,9 +24,8 @@ jobs:
     - name: Build and Push Image
       uses: docker/build-push-action@v4
       with:
-        context: .
         platforms: linux/amd64,linux/arm64
-        push: false
+        push: true
         tags: inventicon/message-db:${{ matrix.version }}-${{ matrix.variant }}
         build-args:
           BASE_IMAGE=postgres:${{ matrix.version }}-${{ matrix.variant }}
