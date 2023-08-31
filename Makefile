@@ -8,7 +8,7 @@ $(TARGETS): %:
 	@docker build --tag $(IMAGE):$* --build-arg BASE_IMAGE=postgres:$* .
 
 $(addsuffix /run, $(TARGETS)): %/run:
-	@docker run --rm --interactive --tty --publish 5432:5432 --env POSTGRES_PASSWORD=message_store $(IMAGE):$*
+	@docker run --rm --interactive --tty --publish 5432:5432 --env MESSAGE_DB_PASSWORD=message_store $(IMAGE):$*
 
 $(addsuffix /shell, $(TARGETS)): %/shell:
 	@docker run --rm --interactive --tty --entrypoint sh $(IMAGE):$*
