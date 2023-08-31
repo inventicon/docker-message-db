@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env sh
 set -e
-
 export PGUSER=${POSTGRES_USER}
 export PGPASSWORD=${POSTGRES_PASSWORD}
-
-cd /opt/message-db && database/install.sh
+cd /message-db && database/install.sh
