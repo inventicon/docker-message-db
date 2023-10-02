@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [11, 12, 13, 14, 15, 16beta3]
+        version: [11, 12, 13, 14, 15, 16]
         variant: [alpine, bullseye, bookworm]
     name: ${{ matrix.version }}-${{ matrix.variant }}
     steps:

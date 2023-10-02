@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG BASE_IMAGE=postgres:15-alpine
+ARG BASE_IMAGE=postgres:16-alpine
 FROM ${BASE_IMAGE}
 
 COPY docker-entrypoint.sh /usr/local/bin/
